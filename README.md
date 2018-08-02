@@ -7,3 +7,7 @@ Ipython等を使って実行する場合は、毎回カーネルの再起動を�
 Run following.
 
 `python train.py`
+
+### Run keras ver.
+
+`python train_keras.py`
