@@ -56,9 +56,7 @@ class DataManager:
             df = pd.read_csv(data_file, index_col=0, parse_dates=True)
             df.rename(columns=new_columns, inplace=True)
             df.index.rename("date", inplace=True)
-            # obtain new columns name
-            open_str, max_str, min_str, close_str = df.columns
-            all_df.append(df[close_str])
+            all_df.append(df)
 
         # format all types of fx closing values to pandas DataFrame
         all_df = pd.concat(all_df, axis=1)
@@ -71,7 +69,10 @@ class DataManager:
 
     def _get_labels_df(self) -> pd.DataFrame:
         # calculate differences between previous and today closing value
-        diff_target = self.all_df[self.target + "-close"].diff()
+        # 終値終値
+        # diff_target = self.all_df[self.target + "-close"].diff()
+        # 始値終値
+        diff_target = self.all_df[self.target + "-close"] - self.all_df[self.target + "-open"]
         diff_target.dropna(inplace=True)
         # make one hot labels
         labels = diff_target > 0
